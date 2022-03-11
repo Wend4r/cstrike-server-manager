@@ -3,7 +3,7 @@
 #######################################
 
 # General prefix game dir name
-prefix_game_dir='csgo'
+prefix_game_dir='cstrike'
 
 # First arg
 first_arg=$1
@@ -60,7 +60,7 @@ elif [ "$first_arg" == "-update" ]; then
 
 	cd $update_dir/;
 
-	ln -fs $from_dir/pak*_*.vpk ./;
+	ln -fs $from_dir/cstrike*_*.vpk ./;
 
 	die;
 fi
@@ -86,12 +86,13 @@ fi
 mkdir $new_dir;
 cd $new_dir
 ln -s $link_dir/bin ./;
+ln -s $link_dir/hl2 ./;
 ln -s $link_dir/platform ./;
 ln -s $link_dir/steamapps ./;
 ln -f -s $link_dir/srcds_linux ./;
 ln -f -s $link_dir/srcds_run ./;
 
-# From csgo_handler.sh
+# From css_handler.sh
 if [ -e $link_dir/start_params.conf ]; then
 	cp -r -p $link_dir/start_params.conf ./;
 fi
@@ -110,27 +111,24 @@ fi
 
 ln -s $link_game_dir/bin ./;
 ln -s $link_game_dir/maps ./;
-cp -r -p $link_game_dir/materials ./;
-cp -r -p $link_game_dir/models ./;
+cp -r -p $link_game_dir/download ./;
 ln -s $link_game_dir/resource ./;
-ln -s $link_game_dir/scripts ./;
-ln -s -f $link_game_dir/botchatter.db ./;
-ln -s -f $link_game_dir/botprofile.db ./;
-ln -s -f $link_game_dir/botprofilecoop.db ./;
-cp -p $link_game_dir/bspconvar_whitelist.txt ./;
 ln -s -f $link_game_dir/gameinfo.txt ./;
-ln -s -f $link_game_dir/gamemodes.txt ./;
-cp -p $link_game_dir/mapcycle.txt ./;
-cp -p $link_game_dir/maplist.txt ./;
-cp -p $link_game_dir/motd.txt ./;
-ln -s $link_game_dir/pak*_*.vpk ./;
-cp -p $link_game_dir/pure_server_whitelist.txt ./;
+ln -s $link_game_dir/cstrike*_*.vpk ./;
 ln -s -f $link_game_dir/steam.inf ./;
 
 mkdir ./cfg;
 cd ./cfg;
-ln -s $link_game_dir/cfg/coop ./coop
-ln -s $link_game_dir/cfg/survival ./survival
+
+ln -s $link_game_dir/cfg/game.cfg;
+ln -s $link_game_dir/cfg/mapcycle_default.txt ./;
+ln -s $link_game_dir/cfg/motd_default.txt ./;
+ln -s $link_game_dir/cfg/motd_text_default.txt ./;
+ln -s $link_game_dir/cfg/pure_server_*.txt ./;
+ln -s $link_game_dir/cfg/rebuy_default.txt ./;
+cp -p $link_game_dir/cfg/skill1.cfg ./;
+ln -s $link_game_dir/cfg/trusted_keys_base.txt ./;
+cp -p $link_game_dir/cfg/trusted_keys_example.txt ./;
 
 if [ -e $link_game_dir/cfg/sourcemod ]; then
 	cp -r -p $link_game_dir/cfg/sourcemod ./sourcemod;
@@ -140,15 +138,9 @@ if [ -e $link_game_dir/cfg/autoexec.cfg ]; then
 	cp -p $link_game_dir/cfg/autoexec.cfg ./;
 fi
 
-ln -s -f $link_game_dir/cfg/default.cfg ./;
-ln -s -f $link_game_dir/cfg/gamemode_*.cfg ./;
-ln -s -f $link_game_dir/cfg/op08_*.cfg ./;
-
 if [ -e $link_game_dir/cfg/server.cfg ]; then
 	cp -p $link_game_dir/cfg/server.cfg ./;
 fi
-
-ln -s -f $link_game_dir/cfg/valve.rc ./;
 
 message ">> Successful is copied the server from ${GREEN}$link_dir/${NC} to ${GREEN}$new_dir/${NC} !";
 
