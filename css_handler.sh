@@ -113,7 +113,7 @@ updateServer () # 1:steamcmd 2:server 3:validate
 
 	message "\n";
 
-	cd $1 && ./steamcmd.sh +login anonymous +force_install_dir $current_dir/$h_server/ +app_update 740 $params +quit;
+	cd $1 && ./steamcmd.sh +login anonymous +force_install_dir $current_dir/$h_server/ +app_update 232330 $params +quit;
 }
 
 checkTwoArg ()
@@ -183,16 +183,13 @@ case $h_function in
 			die;
 		fi
 
-		ip=`hostname -I`
 		start_params=`cat $current_dir/$h_server/start_params.conf`; #$(head -n 1 $start_file);
-		start_params="$start_params -ip $ip +net_public_adr $ip";
-		start_params=`echo $start_params | tr '\r\n' ' ' | tr '\s+' ' '`;
 		message ">> Запуск сервера ${GREEN}$h_server${NC}, ожидайте..";
 		message "\n>> ${RED}Start Params${NC}: $start_params \n";
 
 		cd $current_dir/$h_server && screen -L -Logfile $current_dir/$h_server/console.log -A -d -m -S $h_server'_serv' ./srcds_run $start_params;
 
-		# echo "cd $current_dir/$h_server && screen -L -Logfile $current_dir/$h_server/console.log -A -d -m -S $h_server'_serv' ./srcds_run $start_params"
+		echo "cd $current_dir/$h_server && screen -L -Logfile $current_dir/$h_server/console.log -A -d -m -S $h_server'_serv' ./srcds_run $start_params"
 
 		ip=`echo "$start_params" | awk '/ip/{sub(/.*[+|-]ip /, ""); print $1}'`;
 		port=`echo "$start_params" | awk '/port/{sub(/.*-port /, ""); print $1}'`;
@@ -302,7 +299,7 @@ case $h_function in
 				app_id="${params[1]}";
 			fi
 		fi
-	done < $current_dir/$h_server/csgo/steam.inf
+	done < $current_dir/$h_server/css/steam.inf
 
 	message ">> Запрос на проверку обновления для ${GREEN}$h_server ${NC}сервера отправлена, ожидайте..\n";
 
@@ -350,7 +347,7 @@ case $h_function in
 	checkTwoArg $h_server;
 	validServer $h_server;
 
-	find $current_dir/$h_server/csgo -type f -name '*.log' -exec rm -f {} \;
+	find $current_dir/$h_server/css -type f -name '*.log' -exec rm -f {} \;
 	find $current_dir/$h_server -type f -name 'console.log' -exec rm -f {} \;
 	message ">> Все логи для ${GREEN}$h_server ${NC}удалены!";
 	printToLog $h_server "[Clean logs]: Logs cleaned for $h_server server.";
@@ -371,7 +368,7 @@ case $h_function in
 	message "\n>> Создание бэкапа для ${GREEN}$h_server${NC}, ожидайте..";
 	archive="backup_${h_server}_$(date +"%d.%m.%y_%H-%M-%S").zip";
 
-	server_dir=$current_dir/$h_server/csgo;
+	server_dir=$current_dir/$h_server/css;
 	cd $server_dir;
 	while read data; do
 		if [ -e $server_dir/$data ]; then
@@ -408,7 +405,7 @@ case $h_function in
 	message ">> Установка ${GREEN}сервера CS:GO ${NC}завершена!";
 
 	read server_ip < <(hostname -I);
-	echo -e "-game csgo\n-console\n-debug\n-nobots\n-usercon\n-port 27015\n+clientport 37015\n+net_public_adr $server_ip\n-ip $server_ip\n+game_type 0\n+game_mode 0\n-tickrate 128\n-maxplayers_override 20\n+map de_mirage\n+tv_port 47015\n+tv_maxclients 0\n-secure\n+sv_lan 0\n+sv_setsteamaccount ?" > $current_dir/$h_server/start_params.conf;
+	echo -e "-game css \ \n-console \ \n-debug \ \n-nobots \ \n-usercon \ \n-port 27015 \ \n+clientport 37015 \ \n+net_public_adr $server_ip \ \n-ip $server_ip \ \n+game_type 0 \ \n+game_mode 0 \ \n-tickrate 100 \ \n-maxplayers_override 20 \ \n+map de_dust2 \ \n+tv_port 47015 \ \n+tv_maxclients 0 \ \n-secure \ \n+sv_lan 0 \ \n+sv_setsteamaccount ?" > $current_dir/$h_server/start_params.conf;
 	chmod -R 700 $current_dir/$h_server/start_params.conf;
 
 	message ">> Сгенерирован конфиг параметров запуска в '${GREEN}$(whoami)/$h_server/start_params.conf${NC}'. Отредактируйте его! \nВнимание, параметры должны быть записаны в одну строку!";
