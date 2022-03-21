@@ -3,7 +3,7 @@
 #######################################
 
 # General handler dir name
-general_dir='csgo_handler'
+general_dir='.csgo_handler'
 
 # Settings config file
 settings_conf='settings.conf'

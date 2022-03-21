@@ -3,7 +3,7 @@
 #######################################
 
 # General handler dir name
-general_dir='csgo_handler'
+general_dir='.csgo_handler'
 
 # Settings config file
 settings_conf='settings.conf'
@@ -440,6 +440,10 @@ case $h_function in
 	apt-get -y install libcurl3;
 	apt-get -y install gawk;
 	apt-get -y install gdb;
+
+	# # CentOS
+	# yum -y install libgcc.i686 libstdc++.i686 zlib.i686 libcurl.i686 gawk gdb
+
 	# sudo > /etc/csgo_handler_packages_installed;
 	message "\n>> Установка ${GREEN}стандартных пакетов ${NC}завершена!";
 ;;
