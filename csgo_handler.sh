@@ -186,7 +186,7 @@ case $h_function in
 		ip=`hostname -I`
 		start_params=`cat $current_dir/$h_server/start_params.conf`; #$(head -n 1 $start_file);
 		start_params="$start_params -ip $ip +net_public_adr $ip";
-		start_params=`echo $start_params | tr '\r\n' ' ' | tr '\s+' ' '`;
+		start_params=`echo $start_params | tr '\r\n' ' '`;
 		message ">> Запуск сервера ${GREEN}$h_server${NC}, ожидайте..";
 		message "\n>> ${RED}Start Params${NC}: $start_params \n";
 
