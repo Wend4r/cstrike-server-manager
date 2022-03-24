@@ -3,7 +3,7 @@
 #######################################
 
 # General handler dir name
-general_dir='.csgo_handler'
+general_dir='.css_handler'
 
 # Settings config file
 settings_conf='settings.conf'
@@ -413,7 +413,7 @@ case $h_function in
 ;;
 
 -install-package | -i-p)
-	# if [ -e /etc/csgo_handler_packages_installed ]; then
+	# if [ -e /etc/css_handler_packages_installed ]; then
 	# 	message ">> ${RED}Ошибка! ${NC}Пакеты уже установлены!";
 	# 	die;
 	# fi
@@ -437,7 +437,7 @@ case $h_function in
 	apt-get -y install libcurl3;
 	apt-get -y install gawk;
 	apt-get -y install gdb;
-	# sudo > /etc/csgo_handler_packages_installed;
+	# sudo > /etc/css_handler_packages_installed;
 	message "\n>> Установка ${GREEN}стандартных пакетов ${NC}завершена!";
 ;;
 
