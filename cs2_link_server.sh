@@ -115,7 +115,7 @@ ln -s "$LINK_GAME_CSGO_DIR/bin" ./;
 ln -s "$LINK_GAME_CSGO_DIR/maps" ./;
 ln -s "$LINK_GAME_CSGO_DIR/panorama" ./;
 ln -s "$LINK_GAME_CSGO_DIR/resource" ./;
-ln -s -f "$LINK_GAME_CSGO_DIR/gameinfo.gi" ./;
+cp -p "$LINK_GAME_CSGO_DIR/gameinfo.gi" ./;
 ln -s -f "$LINK_GAME_CSGO_DIR/gameinfo_branchspecific.gi" ./;
 ln -s $LINK_GAME_CSGO_DIR/pak*_*.vpk ./;
 ln -s $LINK_GAME_CSGO_DIR/shaders*_*.vpk ./;
